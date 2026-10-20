@@ -1,0 +1,115 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="SQLiteEncrypted.AvaloniaJournal.MainWindow"
+        Title="Encrypted Desktop Journal"
+        Width="1040" Height="700"
+        MinWidth="820" MinHeight="560"
+        Background="#F6F3EA">
+  <Grid RowDefinitions="Auto,*">
+    <Border Background="#12372F" Padding="28,20">
+      <Grid ColumnDefinitions="*,Auto">
+        <StackPanel Spacing="4">
+          <TextBlock Classes="eyebrow" Foreground="#86D4C4"
+                     Text="SQLITE.ENCRYPTED + AVALONIA" />
+          <TextBlock Foreground="White" FontSize="26" FontWeight="SemiBold"
+                     Text="Encrypted Desktop Journal" />
+        </StackPanel>
+        <Border Grid.Column="1" Background="#1FFFFFFF" CornerRadius="20"
+                Padding="14,8" VerticalAlignment="Center">
+          <TextBlock Foreground="White" Text="Local • encrypted • private" />
+        </Border>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="1" Margin="28">
+      <Border x:Name="UnlockCard" Classes="card" MaxWidth="540"
+              HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Spacing="14">
+          <TextBlock FontSize="28" FontWeight="SemiBold" Text="Unlock your journal" />
+          <TextBlock Foreground="#64748B" TextWrapping="Wrap"
+                     Text="Enter your SQLite.Encrypted activation key and database passphrase. The sample keeps both only for this process." />
+
+          <TextBlock Margin="0,8,0,0" FontWeight="SemiBold" Text="Activation key" />
+          <TextBox x:Name="ActivationKeyBox"
+                   PlaceholderText="Activation key without the see- prefix" />
+          <TextBlock FontWeight="SemiBold" Text="Database passphrase" />
+          <TextBox x:Name="DatabaseKeyBox" PasswordChar="●"
+                   PlaceholderText="Passphrase for this journal" />
+
+          <Border x:Name="UnlockErrorBorder" IsVisible="False"
+                  Background="#FFF1F0" BorderBrush="#E7A19B"
+                  BorderThickness="1" CornerRadius="8" Padding="12">
+            <TextBlock x:Name="UnlockErrorText" Foreground="#9F3128"
+                       TextWrapping="Wrap" />
+          </Border>
+
+          <Button x:Name="UnlockButton" Classes="primary"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                  Padding="16,11" Click="UnlockClicked" Content="Open encrypted journal" />
+          <TextBlock HorizontalAlignment="Center" Foreground="#64748B" FontSize="12"
+                     Text="Database: SQLiteEncrypted/AvaloniaJournal/journal.db" />
+        </StackPanel>
+      </Border>
+
+      <Grid x:Name="JournalWorkspace" IsVisible="False"
+            ColumnDefinitions="330,16,*">
+        <Border Classes="card" Padding="16">
+          <Grid RowDefinitions="Auto,Auto,*">
+            <Grid ColumnDefinitions="*,Auto">
+              <StackPanel>
+                <TextBlock FontSize="22" FontWeight="SemiBold" Text="Notes" />
+                <TextBlock x:Name="NoteCountText" Foreground="#64748B" Text="0 notes" />
+              </StackPanel>
+              <Button Grid.Column="1" Classes="primary" Click="NewClicked"
+                      Padding="15,8" Content="New" />
+            </Grid>
+            <TextBox x:Name="SearchBox" Grid.Row="1" Margin="0,16,0,12"
+                     PlaceholderText="Search title or body…"
+                     TextChanged="SearchChanged" />
+            <ListBox x:Name="NotesList" Grid.Row="2"
+                     SelectionChanged="NoteSelectionChanged">
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <StackPanel Margin="4,8" Spacing="3">
+                    <TextBlock FontWeight="SemiBold" Text="{Binding Title}"
+                               TextTrimming="CharacterEllipsis" />
+                    <TextBlock FontSize="12" Foreground="#64748B"
+                               Text="{Binding UpdatedDisplay}" />
+                  </StackPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+          </Grid>
+        </Border>
+
+        <Border Grid.Column="2" Classes="card">
+          <Grid RowDefinitions="Auto,Auto,*,Auto">
+            <Grid ColumnDefinitions="*,Auto">
+              <StackPanel>
+                <TextBlock Classes="eyebrow" Text="NOTE EDITOR" />
+                <TextBlock x:Name="EditorHeading" FontSize="24" FontWeight="SemiBold"
+                           Text="New note" />
+              </StackPanel>
+              <Button x:Name="DeleteButton" Grid.Column="1" IsVisible="False"
+                      Click="DeleteClicked" Content="Delete" />
+            </Grid>
+
+            <TextBox x:Name="TitleBox" Grid.Row="1" Margin="0,20,0,12"
+                     FontSize="20" PlaceholderText="Note title" />
+            <TextBox x:Name="BodyBox" Grid.Row="2" AcceptsReturn="True"
+                     TextWrapping="Wrap" VerticalContentAlignment="Top"
+                     PlaceholderText="Write something private…" />
+
+            <Grid Grid.Row="3" Margin="0,16,0,0" ColumnDefinitions="*,Auto">
+              <TextBlock x:Name="StatusText" VerticalAlignment="Center"
+                         Foreground="#64748B" Text="Ready" />
+              <Button Grid.Column="1" Classes="primary" Click="SaveClicked"
+                      Padding="20,10" Content="Save note" />
+            </Grid>
+          </Grid>
+        </Border>
+      </Grid>
+    </Grid>
+  </Grid>
+</Window>
+
