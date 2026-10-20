@@ -15,8 +15,8 @@ library supplied by `SQLite.Encrypted`. Avalonia code stays in
 - .NET 8 SDK or later
 - a SQLite.Encrypted activation key valid for the current platform and SQLite 3.54
 
-Request an evaluation activation key at
-[sqlite.sourcegear.com/#evaluation](http://sqlite.sourcegear.com/#evaluation).
+Free fully-featured demo keys are available from
+[sqlite.sourcegear.com](https://sqlite.sourcegear.com/#evaluation).
 
 ## Run
 
